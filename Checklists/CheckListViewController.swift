@@ -48,18 +48,34 @@ class CheckListViewController: UITableViewController {
     
     // MARK : func's
     
-    func configureCheckmarkForCell(cell: UITableViewCell, indexPath: NSIndexPath) {
-        
-        let item = items[indexPath.row]
+    func configureCheckmarkForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
         
         if item.checked {
             cell.accessoryType = .Checkmark
         } else {
             cell.accessoryType = .None
         }
-        
     }
     
+    func configureTextForCell(cell: UITableViewCell, withChecklistItem item: ChecklistItem) {
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.text
+    }
+    
+    @IBAction func addItem(sender: AnyObject) {
+        
+        let newRowIndex = items.count
+        let item = ChecklistItem()
+        item.text = "I am a new row"
+        item.checked = false
+        items.append(item)
+        
+        let indexPath = NSIndexPath(forRow: newRowIndex, inSection: 0)
+        let indexPaths = [indexPath]
+        
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        
+    }
     
     // MARK : override's
     
@@ -83,12 +99,9 @@ class CheckListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItem", forIndexPath: indexPath)
         
         let item = items[indexPath.row]
-        
-        let label = cell.viewWithTag(1000) as! UILabel
-        label.text = item.text
-        
-      
-        configureCheckmarkForCell(cell, indexPath: indexPath)
+
+        configureTextForCell(cell, withChecklistItem: item)
+        configureCheckmarkForCell(cell, withChecklistItem: item)
         return cell
     }
     
@@ -98,13 +111,24 @@ class CheckListViewController: UITableViewController {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) {
             
             let item = items[indexPath.row]
-            item.checked = !item.checked
+            item.toggleChecked()
             
-            configureCheckmarkForCell(cell, indexPath: indexPath)
+            configureCheckmarkForCell(cell, withChecklistItem: item)
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        items.removeAtIndex(indexPath.row)
+        
+        let indexPaths = [indexPath]
+        
+        tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: .Automatic)
+        
+        
+    }
     
 
 }

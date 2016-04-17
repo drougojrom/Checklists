@@ -17,6 +17,7 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
     // var and let
     weak var delegate: AddItemViewControllerDelegate?
+    var itemToEdit: ChecklistItem?
     
     // MARK: Outlets
     
@@ -43,6 +44,16 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
         super.viewWillAppear(true)
         
         textFiled.becomeFirstResponder()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if let item = itemToEdit {
+            title = "Edit Item"
+            textFiled.text = item.text
+            doneBarButton.enabled = true
+        }
     }
 
     // MARK : override

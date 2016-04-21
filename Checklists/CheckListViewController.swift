@@ -17,33 +17,8 @@ class CheckListViewController: UITableViewController, ItemDetailViewControllerDe
     required init?(coder aDecoder: NSCoder){
         
         items = [ChecklistItem]()
-        
-        let row0item = ChecklistItem()
-        row0item.text = "Walk with Dog"
-        row0item.checked = false
-        items.append(row0item)
-        
-        let row1item = ChecklistItem()
-        row1item.text = "Brush my teeth"
-        row1item.checked = true
-        items.append(row1item)
-        
-        let row2item = ChecklistItem()
-        row2item.text = "Learn iOS development"
-        row2item.checked = false
-        items.append(row2item)
-        
-        let row3item = ChecklistItem()
-        row3item.text = "Soccer practice"
-        row3item.checked = true
-        items.append(row3item)
-        
-        let row4item = ChecklistItem()
-        row4item.text = "Eat ice cream"
-        row4item.checked = false
-        items.append(row4item)
-        
         super.init(coder: aDecoder)
+        loadChecklistItems()
         
         print("Document folder is \(documentsDirectory())")
         print("DataFile path is \(dataFilePath())")
@@ -84,6 +59,22 @@ class CheckListViewController: UITableViewController, ItemDetailViewControllerDe
         archiver.finishEncoding()
         data.writeToFile(dataFilePath(), atomically: true)
     
+    }
+    
+    func loadChecklistItems(){
+        // 1 - result of decoding into a temp constant
+        let path = dataFilePath()
+        
+        // 2 - if they actually exist
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            // 3 - load everyting 
+            if let data = NSData(contentsOfFile: path) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+                items = unarchiver.decodeObjectForKey("ChecklistItems") as! [ChecklistItem]
+                
+                unarchiver.finishDecoding()
+            }
+        }
     }
     
     

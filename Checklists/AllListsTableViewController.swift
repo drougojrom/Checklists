@@ -10,6 +10,27 @@ import UIKit
 
 class AllListsTableViewController: UITableViewController {
     
+    // MARK : - instances
+    
+    var lists: [Checklist]
+    
+    required init?(coder aDecoder: NSCoder) {
+        lists = [Checklist]()
+        super.init(coder: aDecoder)
+        
+        var list = Checklist.init(name: "Birthdays" )
+        lists.append(list)
+        
+        list = Checklist.init(name: "Groceries")
+        lists.append(list)
+        
+        list = Checklist.init(name: "Cool Apps")
+        lists.append(list)
+        
+        list = Checklist.init(name: "To Do")
+        lists.append(list)
+    }
+    
     
     func cellForTableView(tableView: UITableView) -> UITableViewCell {
         
@@ -41,15 +62,17 @@ class AllListsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return lists.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = cellForTableView(tableView)
-        cell.textLabel!.text = "List \(indexPath.row)"
-
-
+        
+        let checkList = lists[indexPath.row]
+        cell.textLabel?.text = checkList.name
+        cell.accessoryType = .DetailDisclosureButton
+    
         return cell
     }
     

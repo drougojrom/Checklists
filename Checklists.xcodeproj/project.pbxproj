@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		30DF6F591CC8FBEF00BF9167 /* AllListsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF6F581CC8FBEF00BF9167 /* AllListsTableViewController.swift */; };
+		30DF6F5B1CC909AC00BF9167 /* Checklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DF6F5A1CC909AC00BF9167 /* Checklist.swift */; };
 		30FBF6FD1CC0FA9D00374229 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FBF6FC1CC0FA9D00374229 /* AppDelegate.swift */; };
 		30FBF6FF1CC0FA9D00374229 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30FBF6FE1CC0FA9D00374229 /* CheckListViewController.swift */; };
 		30FBF7021CC0FA9D00374229 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30FBF7001CC0FA9D00374229 /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		30DF6F581CC8FBEF00BF9167 /* AllListsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllListsTableViewController.swift; sourceTree = "<group>"; };
+		30DF6F5A1CC909AC00BF9167 /* Checklist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checklist.swift; sourceTree = "<group>"; };
 		30FBF6F91CC0FA9D00374229 /* Checklists.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Checklists.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30FBF6FC1CC0FA9D00374229 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30FBF6FE1CC0FA9D00374229 /* CheckListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CheckListViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -63,6 +65,7 @@
 				30FBF6FC1CC0FA9D00374229 /* AppDelegate.swift */,
 				30FBF6FE1CC0FA9D00374229 /* CheckListViewController.swift */,
 				30DF6F581CC8FBEF00BF9167 /* AllListsTableViewController.swift */,
+				30DF6F5A1CC909AC00BF9167 /* Checklist.swift */,
 				30FBF70E1CC1132000374229 /* ChecklistItem.swift */,
 				30FBF7001CC0FA9D00374229 /* Main.storyboard */,
 				30FBF7101CC1377800374229 /* ItemDetailViewController.swift */,
@@ -147,6 +150,7 @@
 			files = (
 				30FBF7111CC1377800374229 /* ItemDetailViewController.swift in Sources */,
 				30FBF6FF1CC0FA9D00374229 /* CheckListViewController.swift in Sources */,
+				30DF6F5B1CC909AC00BF9167 /* Checklist.swift in Sources */,
 				30FBF70F1CC1132000374229 /* ChecklistItem.swift in Sources */,
 				30DF6F591CC8FBEF00BF9167 /* AllListsTableViewController.swift in Sources */,
 				30FBF6FD1CC0FA9D00374229 /* AppDelegate.swift in Sources */,

@@ -11,6 +11,8 @@ import UIKit
 protocol AddItemViewControllerDelegate: class {
     func addItemViewControllerDidCancel(controller: AddItemViewController)
     func addItemViewController(controller: AddItemViewController, didFinishAddingItem item: ChecklistItem)
+    
+    func addItemViewController(controller: AddItemViewController, didFinishEditingItem item: ChecklistItem)
 }
 
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
@@ -33,11 +35,17 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
     @IBAction func done(sender: UIBarButtonItem) {
         
+        if let item = itemToEdit {
+            item.text = textFiled.text!
+            delegate?.addItemViewController(self, didFinishEditingItem: item)
+        } else {
+        
         let item = ChecklistItem()
         item.text = textFiled.text!
         item.checked = false
-        
         delegate?.addItemViewController(self, didFinishAddingItem: item)
+            
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

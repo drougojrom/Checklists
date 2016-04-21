@@ -12,6 +12,8 @@ class CheckListViewController: UITableViewController, ItemDetailViewControllerDe
 
     // MARK: var and let
     
+    var checklist: Checklist!
+    
     var items: [ChecklistItem]
     
     required init?(coder aDecoder: NSCoder){
@@ -98,6 +100,7 @@ class CheckListViewController: UITableViewController, ItemDetailViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        title = checklist.name
     }
 
     override func didReceiveMemoryWarning() {

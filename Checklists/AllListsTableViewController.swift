@@ -16,20 +16,8 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     
     required init?(coder aDecoder: NSCoder) {
         lists = [Checklist]()
-        
         super.init(coder: aDecoder)
-        
-        var list = Checklist.init(name: "Birthdays" )
-        lists.append(list)
-        
-        list = Checklist.init(name: "Groceries")
-        lists.append(list)
-        
-        list = Checklist.init(name: "Cool Apps")
-        lists.append(list)
-        
-        list = Checklist.init(name: "To Do")
-        lists.append(list)
+        loadChecklists()
     }
     
     override func viewDidLoad() {
@@ -45,6 +33,36 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - func's and directories for saving files
+    func documentDirectory() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        
+        return paths[0]
+    }
+    
+    func dataFilePath() -> String {
+        return (documentDirectory() as NSString).stringByAppendingPathComponent("Checklists.plist")
+    }
+    
+    func saveChecklist(){
+        let data = NSMutableData()
+        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+        archiver.encodeObject(lists, forKey: "Checklists")
+        archiver.finishEncoding()
+        data.writeToFile(dataFilePath(), atomically: true)
+    }
+    
+    func loadChecklists(){
+        let path = dataFilePath()
+        if NSFileManager.defaultManager().fileExistsAtPath(path) {
+            if let data = NSData(contentsOfFile: path) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
+                lists = unarchiver.decodeObjectForKey("Checklists") as! [Checklist]
+                unarchiver.finishDecoding()
+            }
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -140,4 +158,5 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
         }
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
 }

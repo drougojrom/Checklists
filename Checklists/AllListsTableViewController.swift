@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllListsTableViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsTableViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
     
     var dataModel: DataModel!
     
@@ -25,6 +25,19 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        navigationController?.delegate = self
+        
+        let index = NSUserDefaults.standardUserDefaults().integerForKey("ChecklistIndex")
+        
+        if index != -1 {
+            let checklist = dataModel.lists[index]
+            performSegueWithIdentifier("ShowChecklist", sender: checklist)
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,6 +66,9 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        NSUserDefaults.standardUserDefaults().setInteger(indexPath.row, forKey: "ChecklistIndex")
+        
         let checklist = dataModel.lists[indexPath.row]
         performSegueWithIdentifier("ShowChecklist", sender: checklist)
         
@@ -119,6 +135,16 @@ class AllListsTableViewController: UITableViewController, ListDetailViewControll
             }
         }
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - UINavigationControllerDelegate func's
+    
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        
+        if viewController === self {
+            NSUserDefaults.standardUserDefaults().setInteger(-1, forKey: "ChecklistIndex")
+        }
+        
     }
     
 }

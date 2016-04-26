@@ -14,6 +14,13 @@ class DataModel {
     
     init(){
         loadChecklists()
+        registerDefaults()
+    }
+    
+    func registerDefaults(){
+        let dictionary = ["ChecklistIndex": -1]
+        
+        NSUserDefaults.standardUserDefaults().registerDefaults(dictionary)
     }
     
     
